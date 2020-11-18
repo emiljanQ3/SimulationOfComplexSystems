@@ -46,5 +46,5 @@ print(ant_pos)
 
 print(graph.degree(range(4)))
 plt.subplot(121)
-nx.draw_shell(graph, nlist=[range(4, 8), range(4) ], with_labels=True, font_weight='bold')
+nx.draw(graph, with_labels=True, font_weight='bold')
 plt.show()
