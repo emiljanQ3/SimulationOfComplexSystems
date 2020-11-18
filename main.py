@@ -1,16 +1,50 @@
-# This is a sample Python script.
+import networkx as nx
+from DataClasses.NodeData import NodeData, NodeType
+from DataClasses.Model import Model
+import matplotlib.pyplot as plt
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Create graph
 
+graph = nx.Graph()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+chambers = []
+for i in range(4):
+    chambers.append(NodeData(NodeType.basic, 10, None))
 
+tunnels = []
+for i in range(4):
+    tunnels.append(NodeData(NodeType.tunnel, 5, 3))
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+node_data_obs = chambers + tunnels
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+graph.add_nodes_from(range(len(node_data_obs)))
+
+edges = [
+    (0, 7),
+    (0, 5),
+    (1, 7),
+    (1, 6),
+    (2, 5),
+    (2, 6),
+    (2, 4),
+    (3, 4)
+]
+
+graph.add_edges_from(edges)
+
+# Create model
+model = Model(graph, node_data_obs, 1, 0, None, None, None, None, None)
+
+# Run model
+ant_pos = []
+for i in range(20):
+    model.sim_step()
+    ant_pos.append(model.ants[0].currentNode)
+
+# Validate
+print(ant_pos)
+
+print(graph.degree(range(4)))
+plt.subplot(121)
+nx.draw_shell(graph, nlist=[range(4, 8), range(4) ], with_labels=True, font_weight='bold')
+plt.show()
