@@ -4,7 +4,7 @@ function [xs,ys] = AntBodyArea(ant)
     diagonalBodyY = [2,2,1,1,1,0,0,0,-1,-1,-1,-2,-2];
     
     if ant.direction == 1 || ant.direction == 5
-        xs = rot90(verticalBodyX);
+        xs = rot90(verticalBodyX);              %rot90 function is wrong, replace
         ys = rot90(vertivalBodyY);
     elseif ant.direction == 3 || ant.direction == 7
         xs = verticalBodyX;
