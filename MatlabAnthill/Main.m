@@ -29,7 +29,9 @@ numTimeSteps = simTime;
 
 %Simulation
 for i = 1:numTimeSteps  
-    [world, ants] = AntActions(ants, world, C); 
+    [world, ants] = AntActions(ants, world, C);
+    world = PheromoneDecay(world, C);
+    world = PheromoneDiffusion(world, C);
 end
 
 %Visualize
