@@ -5,7 +5,7 @@ function [world, ants] = AntActions(ants, world, C)
         ant = ants(i);
         
         if ant.digtimer <= 0 && ~ant.hasPellet
-            [willPickUp, pickUpPos] = DecidePickUp(ant, world, C); %TODO implement
+            [willPickUp, pickUpPos] = DecidePickUp(ant, world, C);
             if willPickUp
                 world.pellets(pickUpPos(1), pickUpPos(2)) = ...
                     world.pellets(pickUpPos(1), pickUpPos(2) -1);
