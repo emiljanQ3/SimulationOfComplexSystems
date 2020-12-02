@@ -1,4 +1,3 @@
-
 %Constants
 worldSize = [100, 100];
 diskR = 49;
