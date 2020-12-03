@@ -1,4 +1,6 @@
 function world = PheromoneDiffuseDecay(world,C)
+    searchI = [-1 -1 -1  0 0  1 1 1];
+    searchJ = [-1  0  1 -1 1 -1 0 1];
     for i = 1:size(world.sand,1)
         for j = 1:size(world.sand,2)
             numDigDiffusions = 0;
