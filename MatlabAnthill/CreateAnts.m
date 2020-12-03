@@ -8,7 +8,7 @@ function [world, ants] = CreateAnts(numAnts, world)
         ant.direction = ceil(rand*8); % on unit circle, 1=0, 2=pi/4, 3=pi/2,...,8=7pi/4
         
         while true
-            ant.pos = ceil(rand(1,2) .* size(world));
+            ant.pos = 4+ceil(rand(1,2) .* size(world.sand)-8);
             [xs,ys] = AntBodyArea(ant);
             if all(~world.sand(xs, ys))
                 break
