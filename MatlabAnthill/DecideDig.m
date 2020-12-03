@@ -25,7 +25,7 @@ function [willDig, digPos] = DecideDig(ant, world, C)
         weightSum = weightSum + W(relDir);
         if random < weightSum
             absDir = relDir + 1 - ant.direction;
-            movePos = ant.pos + C.directions(absDir);
+            movePos = ant.pos + C.directions{absDir};
             break
         end
     end
