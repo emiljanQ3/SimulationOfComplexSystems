@@ -30,8 +30,8 @@ function [world, ants] = AntActions(ants, world, C)
             [digX, digY] = AntBodyArea(ant); %Pheromone only at center of mass or entire body?
             digX = [digX, ant.digPos(1)];
             digY = [digY, ant.digPos(2)];
-            world.trailPheromone(digX, digY) = ...
-                world.trailPheromone(digX, digY) + C.Q_d; 
+            world.didPheromone(digX, digY) = ...
+                world.digPheromone(digX, digY) + C.Q_d; 
             
             if ant.digtimer <= 0
                 world.sand(ant.digPos(1), ant.digPos(2)) = false;
@@ -60,7 +60,7 @@ function [world, ants] = AntActions(ants, world, C)
         end
         
         %Move
-        [movePos, newDir] = DecideMove(ant, world, C); %TODO implement
+        [movePos, newDir] = DecideMove(ant, world, C);
         
         [oldBodyX, oldBodyY] = AntBodyArea(ant);
         world.antSpace(oldBodyX, oldBodyY) = ...
