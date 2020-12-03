@@ -1,5 +1,7 @@
 addpath("../")
-
+close 1 
+close 2
+figure(1)
 x = [1:5;1:5];
 y = [ones(1,5)*1;2*ones(1,5)];
 plot(x,y,'*r'); hold on;
