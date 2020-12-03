@@ -62,6 +62,16 @@ function [world, ants] = AntActions(ants, world, C)
         %Move
         [movePos, newDir] = DecideMove(ant, world, C);
         
+        %Check for ants to close to the edge
+        if movePos(1) > size(world.sand, 1)-5 ...
+                || movePos(1) < 5 ...
+            || movePos(2) > size(world.sand, 2)-5 ...
+                || movePos(2) < 5
+            
+            ants(i) = ant;
+            continue
+        end
+        
         [oldBodyX, oldBodyY] = AntBodyArea(ant);
         world.antSpace(oldBodyX, oldBodyY) = ...
             world.antSpace(oldBodyX, oldBodyY) - 1;
