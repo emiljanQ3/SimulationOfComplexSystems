@@ -1,29 +1,39 @@
 function world = PheromoneDiffuseDecay(world,C)
     searchI = [-1 -1 -1  0 0  1 1 1];
     searchJ = [-1  0  1 -1 1 -1 0 1];
-    for i = 1:size(world.sand,1)
-        for j = 1:size(world.sand,2)
-            numDigDiffusions = 0;
-            numTrailDiffusions = 0;
+    sizeX = size(world.sand,1);
+    sizeY = size(world.sand,2);
+    numDigDiffusions = zeros(sizeX,sizeY);
+    numTrailDiffusions = zeros(sizeX,sizeY);
+    digDiffusions = zeros(sizeX,sizeY);
+    trailDiffusions = zeros(sizeX,sizeY);
+    
+    % decay original values
+    world.digPheromone = world.digPheromone * .5 ^ 1/C.mu_d;
+    world.trailPheromone = world.trailPheromone * .5 ^ 1/C.mu_t;
+    
+    for i = 1:sizeX
+        for j = 1:sizeY
             for k = 1:8
                 neighbor = [i + searchI(k), j + searchJ(k)];
-                if sum(neighbor > 0) == 2 && sum(neighbor(1) <= size(world.sand,1) + neighbor(2) <= size(world.sand,2)) == 2 % neighbor is in world
+                if sum(neighbor > 0) == 2 && sum(neighbor(1) <= sizeX + neighbor(2) <= sizeY) == 2 % neighbor is in world
                     if world.digPheromone(i,j) > world.digPheromone(neighbor) 
-                        numDigDiffusions = numDigDiffusions + 1;
-                        world.digPheromone(neighbor) = world.digPheromone(neighbor) + world.digPheromone(i,j) * C.D_d;
+                        numDigDiffusions(i,j) = numDigDiffusions(i,j) + 1;
+                        digDiffusions(neighbor) = digDiffusions(neighbor) + world.digPheromone(i,j) * C.D_d;
                     end
                     if world.trailPheromone(i,j) > world.trailPheromone(neighbor)
-                        numTrailDiffusions = numTrailDiffusions + 1;
-                        world.trailPheromone(neighbor) = world.trailPheromone(neighbor) + world.trailPheromone(i,j) * C.D_t;
+                        numTrailDiffusions(i,j) = numTrailDiffusions(i,j) + 1;
+                        trailDiffusions(neighbor) = trailDiffusions(neighbor) + world.digPheromone(i,j) * C.D_d;
                     end
                 end
-                                                                % decay         diffuse    
-            newDigPheromoneLvl = world.digPheromone(i,j) * (1 - 1/C.mu_d - numDigDiffusions * C.D_d);
-            newTrailPheromoneLvl =  world.trailPheromone(i,j) * (1 - 1/C.mu_t - numTrailDiffusions * C.D_t);
-            world.digPheromone(i,j) = newDigPheromoneLvl * (newDigPheromoneLvl > 0);
-            world.trailPheromone(i,j) = newTrailPheromoneLvl * (newTrailPheromoneLvl > 0);
             end
         end
     end
+    % subtract losses from diffusion
+    world.digPheromone = world.digPheromone  - world.digPheromone .* C.D_d .* numDigDiffusions;
+    world.trailPheromone = world.trailPheromone - world.trailPheromone .* C.D_t .* numTrailDiffusions;
+    % add gains from diffusion
+    world.digPheromone = world.digPheromone + digDiffusions;
+    world.trailPheromone = world.trailPheromone + trailDiffusions;
 end
 
