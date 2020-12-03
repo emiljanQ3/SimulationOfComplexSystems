@@ -1,7 +1,7 @@
 %Constants
-worldSize = [100, 100];
+worldSize = [10000, 10000];
 diskR = 49;
-numAnts = 10;
+numAnts = 100;
 simTime = 60*60*5; %s
 
 C.T_d = 42.04; %s
