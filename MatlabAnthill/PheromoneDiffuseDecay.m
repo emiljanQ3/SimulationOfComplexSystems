@@ -7,7 +7,7 @@ function world = PheromoneDiffuseDecay(world,C)
             numTrailDiffusions = 0;
             for k = 1:8
                 neighbor = [i + searchI(k), j + searchJ(k)];
-                if sum(neighbor > 0) == 2 && sum(neighbor <= 100) == 2 % neighbor is in world
+                if sum(neighbor > 0) == 2 && sum(neighbor(1) <= size(world.sand,1) + neighbor(2) <= size(world.sand,2)) == 2 % neighbor is in world
                     if world.digPheromone(i,j) > world.digPheromone(neighbor) 
                         numDigDiffusions = numDigDiffusions + 1;
                         world.digPheromone(neighbor) = world.digPheromone(neighbor) + world.digPheromone(i,j) * C.D_d;
