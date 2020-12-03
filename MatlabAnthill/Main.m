@@ -23,7 +23,7 @@ C.directionWeights = [100, 46, 6, 0, 1, 0, 6, 46]; %relative
 
 %Initialize
 world = CreateWorld(worldSize, diskR);
-ants = CreateAnts(numAnts, world);
+[world, ants] = CreateAnts(numAnts, world);
 numTimeSteps = simTime; 
 
 %Simulation

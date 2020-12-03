@@ -1,4 +1,4 @@
-function ants = CreateAnts(numAnts, world)
+function [world, ants] = CreateAnts(numAnts, world)
     for i = 1:numAnts
         
         ant.digPos = [NaN, NaN];
@@ -14,6 +14,10 @@ function ants = CreateAnts(numAnts, world)
                 break
             end
         end
+        %Hope this does not cause to many overlapping ants, will have to
+        %create extra check in that case.
+        world.antSpace(xs,ys) = world.antSpace(xs,ys) + 1;
+        
         ants(i) = ant;
     end
 end
