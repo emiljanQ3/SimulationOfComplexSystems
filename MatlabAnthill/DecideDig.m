@@ -14,6 +14,7 @@ function [willDig, digPos] = DecideDig(ant, world, C)
          willDig = willDig || rand < C.f_pa(Q);
      end
      
-     %TODO how to decide dig position?
+     %TODO how to decide dig position? Will do random block based on
+     %movement matrix
      
 end
