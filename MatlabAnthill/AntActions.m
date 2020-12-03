@@ -1,10 +1,10 @@
 function [world, ants] = AntActions(ants, world, C)
-    order = randperm(1:length(ants));
+    order = randperm(length(ants));
     
     for i = order
         ant = ants(i);
         
-        if ant.digtimer <= 0 && ~ant.hasPellet
+        if ant.digTimer <= 0 && ~ant.hasPellet
             [willPickUp, pickUpPos] = DecidePickUp(ant, world, C);
             if willPickUp
                 world.pellets(pickUpPos(1), pickUpPos(2)) = ...

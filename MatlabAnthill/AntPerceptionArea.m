@@ -7,12 +7,10 @@ function [xs,ys] = AntPerceptionArea(ant)
     
     if mod(ant.direction, 2) == 1
         k = (ant.direction - 1)/2 - 1;
-        xs = rot90(topFacingX, k);       %rot90 function is wrong, replace
-        ys = rot90(topFacingY, k);
+        [xs, ys] = rot90n(topFacingX, topFacingY, k);  
     else
         k = (ant.direction)/2 - 1;
-        xs = rot90(topRightFacingX, k);
-        ys = rot90(topRightFacingY, k);
+        [xs, ys] = rot90n(topRightFacingX, topRightFacingY, k); 
     end
     
     xs = reshape(xs, [1,numel(xs)]) + ant.pos(1);
