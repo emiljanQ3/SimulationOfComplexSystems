@@ -6,8 +6,8 @@ function [xs,ys] = DirectionalArea(dirIndex)
     
     if mod(dirIndex, 2) == 1
         k = (dirIndex - 1)/2;
-        xs = rot90(rightX, k);       %rot90 function is wrong, replace
-        ys = rot90(rightY, k);
+        [xs,ys ]= rot90n(rightX, rightY,k);
+        
     else
         k = (dirIndex)/2 - 1;
         xs = rot90(topRightX, k);
