@@ -36,7 +36,7 @@ function [willDig, digPos] = DecideDig(ant, world, C)
     [digAreaX, digAreaY] = AntBodyArea(dummyAnt);
     
     indices = 1:length(digAreaX);
-    sandIndices = indices(World(digAreaX, digAreaY));
+    sandIndices = indices(world.sand(digAreaX, digAreaY));
     
     randSandIndex = sandIndices(rand*length(sandIndices));
     

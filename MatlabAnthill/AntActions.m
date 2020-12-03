@@ -15,7 +15,7 @@ function [world, ants] = AntActions(ants, world, C)
                 continue
             end
             
-            [willDig, digPos] = DecideDig(ant, world, C); %TODO implement
+            [willDig, digPos] = DecideDig(ant, world, C);
             if willDig
                 ant.digTimer = C.T_d;
                 ant.digPos = digPos;
@@ -49,7 +49,7 @@ function [world, ants] = AntActions(ants, world, C)
             world.trailPheromone(trailX, trailY) = ...
                 world.trailPheromone(trailX, trailY) + Q_t; 
             
-            [willDrop, dropPos] = DecideDrop(ant, world, C); %TODO implement
+            [willDrop, dropPos] = DecideDrop(ant, world, C);
             if willDrop
                 ant.hasPellet = false;
                 world.pellets(dropPos(1), dropPos(2)) = ...
