@@ -35,5 +35,9 @@ function world = PheromoneDiffuseDecay(world,C)
     % add gains from diffusion
     world.digPheromone = world.digPheromone + digDiffusions;
     world.trailPheromone = world.trailPheromone + trailDiffusions;
+    % make sure we dont have any negatives
+    if ~all(world.digPheromone >= 0,'all') || ~all(world.trailPheromone >= 0,'all')
+        error('Colton fucked up! We got some native stank values')
+    end
 end
 
