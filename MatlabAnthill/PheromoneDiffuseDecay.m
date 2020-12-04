@@ -23,7 +23,7 @@ function world = PheromoneDiffuseDecay(world,C)
                     end
                     if world.trailPheromone(i,j) > world.trailPheromone(neighbor)
                         numTrailDiffusions(i,j) = numTrailDiffusions(i,j) + 1;
-                        trailDiffusions(neighbor) = trailDiffusions(neighbor) + world.digPheromone(i,j) * C.D_d;
+                        trailDiffusions(neighbor) = trailDiffusions(neighbor) + world.digPheromone(i,j) * C.D_t;
                     end
                 end
             end
