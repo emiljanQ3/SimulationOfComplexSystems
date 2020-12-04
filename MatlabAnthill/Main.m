@@ -1,7 +1,7 @@
 %Constants
 worldSize = [100, 100];
-diskR = 49;
-numAnts = 10;
+diskR = 49;                         % cm
+numAnts = 10;                       % leggy bois
 simTime = 60*60*5;                  % s
 
 C.T_d = 42.04;                      % s
