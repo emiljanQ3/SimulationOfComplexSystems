@@ -30,8 +30,9 @@ function [world, ants] = AntActions(ants, world, C)
             [digX, digY] = AntBodyArea(ant); %Pheromone only at center of mass or entire body?
             digX = [digX, ant.digPos(1)];
             digY = [digY, ant.digPos(2)];
-            world.digPheromone(digX, digY) = ...
-                world.digPheromone(digX, digY) + C.Q_d; 
+            digXY = sub2ind(world.size, digX, digY);
+            world.digPheromone(digXY) = ...
+                world.digPheromone(digXY) + C.Q_d; 
             
             if ant.digTimer <= 0
                 world.sand(ant.digPos(1), ant.digPos(2)) = false;
@@ -46,8 +47,9 @@ function [world, ants] = AntActions(ants, world, C)
             Q_t = max(0, C.Q_t0 - (C.F * ant.carryTime)); %I'm assuming Q_t >= 0
             
             [trailX, trailY] = AntBodyArea(ant); %Trail only at center of mass or entire body?
-            world.trailPheromone(trailX, trailY) = ...
-                world.trailPheromone(trailX, trailY) + Q_t; 
+            trailXY = sub2ind(world.size, trailX, trailY);
+            world.trailPheromone(trailXY) = ...
+                world.trailPheromone(trailXY) + Q_t; 
             
             [willDrop, dropPos] = DecideDrop(ant, world, C);
             if willDrop
@@ -73,15 +75,17 @@ function [world, ants] = AntActions(ants, world, C)
         end
         
         [oldBodyX, oldBodyY] = AntBodyArea(ant);
-        world.antSpace(oldBodyX, oldBodyY) = ...
-            world.antSpace(oldBodyX, oldBodyY) - 1;
+        oldBodyXYs = sub2ind(world.size, oldBodyX, oldBodyY);
+        world.antSpace(oldBodyXYs) = ...
+            world.antSpace(oldBodyXYs) - 1;
         
         ant.pos = movePos;
         ant.direction = newDir;
         
         [newBodyX, newBodyY] = AntBodyArea(ant);
-        world.antSpace(newBodyX, newBodyY) = ...
-            world.antSpace(newBodyX, newBodyY) + 1;
+        newBodyXYs = sub2ind(world.size, newBodyX, newBodyY);
+        world.antSpace(newBodyXYs) = ...
+            world.antSpace(newBodyXYs) + 1;
         
         ants(i) = ant;
     end
