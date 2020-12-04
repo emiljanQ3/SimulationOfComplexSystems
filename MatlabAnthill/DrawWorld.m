@@ -6,8 +6,8 @@ function DrawWorld(world)
     digColor = [1, 21, 148]./255;
     trailColor = [111, 1, 148]./255;
     
-    digMax = 0.001;
-    trailMax = 0.001;
+    digMax = 2000; %Tune to what seems reasonable.
+    trailMax = 2000;
     
 
     figure(3)
