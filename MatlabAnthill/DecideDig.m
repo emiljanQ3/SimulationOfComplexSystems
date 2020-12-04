@@ -24,11 +24,11 @@ function [willDig, digPos] = DecideDig(ant, world, C)
     for relDir = 1:8
         weightSum = weightSum + W(relDir);
         if random < weightSum
-            absDir = relDir + 1 - ant.direction;
-            if absDir > 0
-                movePos = ant.pos + C.directions{absDir};
+            absDir = relDir - 1 + ant.direction;
+            if absDir > 8
+                movePos = ant.pos + C.directions{absDir - 8};
             else
-                movePos = ant.pos + C.directions{9 + absDir};
+                movePos = ant.pos + C.directions{absDir};
             end
             break
         end
@@ -40,9 +40,19 @@ function [willDig, digPos] = DecideDig(ant, world, C)
     [digAreaX, digAreaY] = AntBodyArea(dummyAnt);
     
     indices = 1:length(digAreaX);
-    sandIndices = indices(world.sand(digAreaX, digAreaY));
+    isSandIndex = false(1,length(digAreaX));
+    for i = indices
+        isSandIndex(i) = world.sand(digAreaX(i), digAreaY(i));
+    end
+    sandIndices = indices(isSandIndex);
     
-    randSandIndex = sandIndices(rand*length(sandIndices));
+    if(isempty(sandIndices))
+       willDig = false;
+       digPos = [NaN, NaN];
+       return
+    end
+    
+    randSandIndex = sandIndices(ceil(rand*length(sandIndices)));
     
     digPos = [digAreaX(randSandIndex), digAreaY(randSandIndex)];
      
