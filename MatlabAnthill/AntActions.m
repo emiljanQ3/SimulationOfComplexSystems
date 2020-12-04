@@ -33,7 +33,7 @@ function [world, ants] = AntActions(ants, world, C)
             world.didPheromone(digX, digY) = ...
                 world.digPheromone(digX, digY) + C.Q_d; 
             
-            if ant.digtimer <= 0
+            if ant.digTimer <= 0
                 world.sand(ant.digPos(1), ant.digPos(2)) = false;
                 ant.hasPellet = true;
             end
