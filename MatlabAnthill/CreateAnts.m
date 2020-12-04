@@ -10,13 +10,15 @@ function [world, ants] = CreateAnts(numAnts, world)
         while true
             ant.pos = 5+ceil(rand(1,2) .* (size(world.sand)-10));
             [xs,ys] = AntBodyArea(ant);
-            if all(~world.sand(xs, ys))
+            xys = sub2ind(world.size, xs, ys);
+            if all(~world.sand(xys))
                 break
             end
         end
         %Hope this does not cause to many overlapping ants, will have to
         %create extra check in that case.
-        world.antSpace(xs,ys) = world.antSpace(xs,ys) + 1;
+        
+        world.antSpace(xys) = world.antSpace(xys) + 1;
         
         ants(i) = ant;
     end
