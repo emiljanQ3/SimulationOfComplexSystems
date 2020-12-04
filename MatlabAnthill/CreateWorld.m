@@ -10,4 +10,5 @@ function world = CreateWorld(worldSize, diskR)
     world.pellets = zeros(worldSize);
     world.digPheromone = zeros(worldSize);
     world.trailPheromone = zeros(worldSize);
+    world.size = worldSize;
 end
