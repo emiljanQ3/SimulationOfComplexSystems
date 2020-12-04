@@ -11,7 +11,7 @@ function [willDrop, dropPos] = DecideDrop(ant, world, C)
     
     indices = 1:length(xs);
     xys = sub2ind(world.size, xs, ys);
-    emptyIndices = indices(~world.sand(xys));
+    emptyIndices = indices(~world.sand(xys) & ~world.antSpace(xys));
     
     randSandIndex = emptyIndices(ceil(rand*length(emptyIndices)));
     
