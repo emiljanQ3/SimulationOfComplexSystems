@@ -10,9 +10,10 @@ function [willDrop, dropPos] = DecideDrop(ant, world, C)
     [xs, ys] = AntPerceptionArea(ant);
     
     indices = 1:length(xs);
-    emptyIndices = indices(~world.sand(xs, ys));
+    xys = sub2ind(world.size, xs, ys);
+    emptyIndices = indices(~world.sand(xys));
     
-    randSandIndex = emptyIndices(rand*length(emptyIndices));
+    randSandIndex = emptyIndices(ceil(rand*length(emptyIndices)));
     
     dropPos = [xs(randSandIndex), ys(randSandIndex)];
 end
