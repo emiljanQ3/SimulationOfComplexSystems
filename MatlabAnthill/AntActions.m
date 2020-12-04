@@ -30,7 +30,7 @@ function [world, ants] = AntActions(ants, world, C)
             [digX, digY] = AntBodyArea(ant); %Pheromone only at center of mass or entire body?
             digX = [digX, ant.digPos(1)];
             digY = [digY, ant.digPos(2)];
-            world.didPheromone(digX, digY) = ...
+            world.digPheromone(digX, digY) = ...
                 world.digPheromone(digX, digY) + C.Q_d; 
             
             if ant.digTimer <= 0
