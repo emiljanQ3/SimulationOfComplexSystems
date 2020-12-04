@@ -62,6 +62,11 @@ function [world, ants] = AntActions(ants, world, C)
         end
         
         %Move
+        [oldBodyX, oldBodyY] = AntBodyArea(ant);
+        oldBodyXYs = sub2ind(world.size, oldBodyX, oldBodyY);
+        world.antSpace(oldBodyXYs) = ...
+            world.antSpace(oldBodyXYs) - 1;
+        
         [movePos, newDir] = DecideMove(ant, world, C);
         
         %Check for ants to close to the edge
@@ -70,14 +75,15 @@ function [world, ants] = AntActions(ants, world, C)
             || movePos(2) > size(world.sand, 2)-5 ...
                 || movePos(2) < 5
             
+            [newBodyX, newBodyY] = AntBodyArea(ant);
+            newBodyXYs = sub2ind(world.size, newBodyX, newBodyY);
+            world.antSpace(newBodyXYs) = ...
+            world.antSpace(newBodyXYs) + 1;
             ants(i) = ant;
             continue
         end
         
-        [oldBodyX, oldBodyY] = AntBodyArea(ant);
-        oldBodyXYs = sub2ind(world.size, oldBodyX, oldBodyY);
-        world.antSpace(oldBodyXYs) = ...
-            world.antSpace(oldBodyXYs) - 1;
+        
         
         ant.pos = movePos;
         ant.direction = newDir;
