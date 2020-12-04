@@ -9,8 +9,8 @@ function world = PheromoneDiffuseDecay(world,C)
     trailDiffusions = zeros(sizeX,sizeY);
     
     % decay original values
-    world.digPheromone = world.digPheromone * .5 ^ 1/C.mu_d;
-    world.trailPheromone = world.trailPheromone * .5 ^ 1/C.mu_t;
+    world.digPheromone = world.digPheromone * (1 - 1/C.mu_d);
+    world.trailPheromone = world.trailPheromone * (1 - 1/C.mu_t);
     
     for i = 1:sizeX
         for j = 1:sizeY
