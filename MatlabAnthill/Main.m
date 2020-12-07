@@ -34,7 +34,8 @@ v = zeros(1,numTimeSteps);
 for i = 1:numTimeSteps  
     DrawWorld(world);
     [world, ants] = AntActions(ants, world, C);
-    world = PheromoneDiffuseDecay(world, C);
+    world = PheromoneDecay(world, C);
+    world = PheromoneDiffuse(world, C);
 end
 
 %Visualize
