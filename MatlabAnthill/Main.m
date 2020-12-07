@@ -44,11 +44,6 @@ for i = 1:numTimeSteps
 end
 
 %% Visualize
-
-DrawWorld(world, 1)
-
-DrawWorld(world, 0)
-
 sand = zeros(1, length(snapshots));
 pelletsTot = sand;
 pelletsInside = sand;
@@ -71,3 +66,10 @@ plot(x, y1)
 hold on
 plot(x, y2)
 plot(x, y3)
+
+legend('Sand', 'Sand + pellets under disc', 'Sand + all pellets')
+
+for i = 4409:length(snapshots)
+    world = snapshots{i};
+    DrawWorld(world, 0);
+end
