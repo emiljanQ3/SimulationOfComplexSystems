@@ -10,7 +10,9 @@ function DrawWorld(world, showPheromones)
     trailMax = 2000;
     
 
-    figure(3)
+    f = figure(3);
+    %set(f,'WindowState','fullscreen');
+    
     hold off
     rgb = zeros([world.size, 3]);
 
