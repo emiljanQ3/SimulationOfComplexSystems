@@ -1,9 +1,10 @@
 %Constants
-worldSize = [300, 300];
-diskR = 130;                         % cm
-numAnts = 100;                       % leggy bois
+worldSize = [150, 150];
+diskR = 70;                         % cm
+numAnts = 30;                       % leggy bois
 simTime = 60*60*5;                  % s
 
+C.dt = 1;                           % s
 C.T_d = 42.04;                      % s
 C.P_d = 0.188;                      % /s
 C.P_p = 0.102;                      % /contact
@@ -13,9 +14,11 @@ C.f_pa = @(X) X.^2/(X.^2 + 200);
 C.f_ph = @(X) X.^2/(X.^2 + 3500);
 C.Q_d = 100;                        % units
 C.Q_t0 = 2000;                      % units
-C.F = 5;
+C.F = 5;                            % units/s
 C.mu_t  = 40*60;                    % s
+C.decay_t =  2^(-C.dt/C.mu_t);
 C.mu_d  = 20*60;                    % s
+C.decay_d =  2^(-C.dt/C.mu_d);
 C.D_t = 3.322 *10^-7 * 1/0.08^2;    % cell^2/s
 C.D_d = 3.322 *10^-7 * 1/0.08^2;    % cell^2/s
 C.directions = {[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1],[0,-1],[1,-1]}; %absolute
