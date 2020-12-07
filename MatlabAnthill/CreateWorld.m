@@ -1,11 +1,9 @@
 function world = CreateWorld(worldSize, diskR)
-    world.sand = false(worldSize);
-    for i = 1:worldSize
-        for j = 1:worldSize
-            world.sand(i,j) = norm([i,j] - worldSize./2) < diskR;
-        end
-    end
+    [X,Y] = meshgrid(1:worldSize(1), 1:worldSize(2));
     
+    world.disk = (X - worldSize(1)/2).^2 + (Y - worldSize(2)/2).^2 < diskR^2;
+    
+    world.sand = world.disk;
     world.antSpace = zeros(worldSize);
     world.pellets = zeros(worldSize);
     world.digPheromone = zeros(worldSize);
