@@ -32,10 +32,11 @@ numTimeSteps = ceil(simTime / C.dt);
 %Simulation
 v = zeros(1,numTimeSteps);
 for i = 1:numTimeSteps  
-    DrawWorld(world, 0);
+    %DrawWorld(world, 0);
     [world, ants] = AntActions(ants, world, C);
     world = PheromoneDecay(world, C);
     world = PheromoneDiffuse(world, C);
+    PrintProgress(i, numTimeSteps);
 end
 
 %Visualize
