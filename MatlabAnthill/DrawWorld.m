@@ -1,4 +1,4 @@
-function DrawWorld(world)
+function DrawWorld(world, showPheromones)
     backgroundColor = [201, 199, 181]./255;
     sandColor = [204, 179, 90]./255;
     antColor = [13, 9, 3]./255;
@@ -23,6 +23,10 @@ function DrawWorld(world)
     end
 
     imshow(rgb)
+    
+    if ~showPheromones
+        return
+    end
     
     %Overlay pheromones
     hold on
