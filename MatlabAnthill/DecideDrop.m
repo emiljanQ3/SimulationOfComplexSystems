@@ -4,7 +4,7 @@ function [willDrop, dropPos] = DecideDrop(ant, world, C)
     
     if ~willDrop
         dropPos = [NaN, NaN];
-       return 
+        return 
     end
     
     [xs, ys] = AntPerceptionArea(ant);
@@ -12,6 +12,12 @@ function [willDrop, dropPos] = DecideDrop(ant, world, C)
     indices = 1:length(xs);
     xys = sub2ind(world.size, xs, ys);
     emptyIndices = indices(~world.sand(xys) & ~world.antSpace(xys));
+    
+    if isempty(emptyIndices)
+        dropPos = [NaN, NaN];
+        willDrop = false;
+        return
+    end
     
     randSandIndex = emptyIndices(ceil(rand*length(emptyIndices)));
     
