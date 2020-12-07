@@ -8,7 +8,7 @@ function [world, ants] = AntActions(ants, world, C)
             [willPickUp, pickUpPos] = DecidePickUp(ant, world, C);
             if willPickUp
                 world.pellets(pickUpPos(1), pickUpPos(2)) = ...
-                    world.pellets(pickUpPos(1), pickUpPos(2) -1);
+                    world.pellets(pickUpPos(1), pickUpPos(2)) -1;
                 ant.hasPellet = true;
                 ant.carryTime = 0;
                 ants(i) = ant;
