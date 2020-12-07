@@ -19,6 +19,7 @@ function [world, ants] = AntActions(ants, world, C)
             if willDig
                 ant.digTimer = C.T_d;
                 ant.digPos = digPos;
+                world.sand(digPos(1), digPos(2)) = false;
                 ants(i) = ant;
                 continue
             end
@@ -34,7 +35,6 @@ function [world, ants] = AntActions(ants, world, C)
                 world.digPheromone(digXY) + C.Q_d; 
             
             if ant.digTimer <= 0
-                world.sand(ant.digPos(1), ant.digPos(2)) = false;
                 ant.hasPellet = true;
             end
             ants(i) = ant;
