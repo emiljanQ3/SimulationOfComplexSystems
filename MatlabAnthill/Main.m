@@ -2,7 +2,8 @@
 worldSize = [150, 150];
 diskR = 70;                         % cells
 numAnts = 30;                       % leggy bois
-simTime = 60*60*24;                  % s
+simTime = 60*60*24;                 % s
+snapshotTime = 5*60;                % s
 
 C.dt = 1;                           % s
 C.T_d = 42.04 / C.dt;                    
@@ -29,14 +30,44 @@ world = CreateWorld(worldSize, diskR);
 [world, ants] = CreateAnts(numAnts, world);
 numTimeSteps = ceil(simTime / C.dt); 
 
+snapshots = cell(1, ceil(numTimeSteps/(snapshotTime/C.dt)));
+
 %Simulation
-v = zeros(1,numTimeSteps);
 for i = 1:numTimeSteps  
     %DrawWorld(world, 0);
     [world, ants] = AntActions(ants, world, C);
     world = PheromoneDecay(world, C);
     world = PheromoneDiffuse(world, C);
+    
     PrintProgress(i, numTimeSteps);
+    snapshots = SaveSnapshots(snapshots, i, numTimeSteps, world);
 end
 
-%Visualize
+%% Visualize
+
+DrawWorld(world, 1)
+
+DrawWorld(world, 0)
+
+sand = zeros(1, length(snapshots));
+pelletsTot = sand;
+pelletsInside = sand;
+
+for i = 1:length(snapshots)
+    world = snapshots{i};
+    sand(i) = sum(world.sand, 'all');
+    pelletsTot(i) = sum(world.pellets, 'all');
+    pelletsInside(i) = sum(world.pellets(world.disk), 'all');
+end
+
+x = 1:length(snapshots);
+y1 = sand;
+y2 = sand + pelletsInside;
+y3 = sand + pelletsTot;
+
+figure(4)
+hold off
+plot(x, y1)
+hold on
+plot(x, y2)
+plot(x, y3)
