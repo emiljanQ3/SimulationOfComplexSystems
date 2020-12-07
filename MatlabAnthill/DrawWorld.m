@@ -4,7 +4,7 @@ function DrawWorld(world, showPheromones)
     antColor = [13, 9, 3]./255;
     pelletColor = [143, 88, 6]./255;
     digColor = [1, 21, 148]./255;
-    trailColor = [111, 1, 148]./255;
+    trailColor = [19, 194, 66]./255;
     
     digMax = 2000; %Tune to what seems reasonable.
     trailMax = 2000;
@@ -16,9 +16,9 @@ function DrawWorld(world, showPheromones)
 
     for j = 1:3
         C = backgroundColor(j) .* ones(world.size); 
+        C(world.pellets > 0) = pelletColor(j);
         C(world.antSpace > 0) = antColor(j);
         C(world.sand) = sandColor(j);
-        C(world.pellets > 0) = pelletColor(j);
         rgb(:,:,j) = C;
     end
 
