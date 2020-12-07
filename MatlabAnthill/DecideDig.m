@@ -1,10 +1,12 @@
 function [willDig, digPos] = DecideDig(ant, world, C)
     [perceptionXs, perceptionYs] = AntPerceptionArea(ant);
+    perceptionXYs = sub2ind(world.size, perceptionXs, perceptionYs);
     [bodyXs, bodyYs] = AntBodyArea(ant);
+    bodyXYs = sub2ind(world.size, bodyXs, bodyYs);
     
-     isInDepression = sum(world.sand(perceptionXs, perceptionYs)) > 11;
+     isInDepression = sum(world.sand(perceptionXYs)) > 11;
      
-     Q = mean(world.digPheromone(bodyXs, bodyYs)); %Mean pheromone level
+     Q = mean(world.digPheromone(bodyXYs)); %Mean pheromone level
      
      if isInDepression
          willDig = rand < C.f_sa;
