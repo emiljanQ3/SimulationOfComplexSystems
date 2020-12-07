@@ -27,9 +27,8 @@ function [world, ants] = AntActions(ants, world, C)
         if ant.digTimer > 0
             ant.digTimer = ant.digTimer - 1;
             
-            [digX, digY] = AntBodyArea(ant); %Pheromone only at center of mass or entire body?
-            digX = [digX, ant.digPos(1)];
-            digY = [digY, ant.digPos(2)];
+            digX = [ant.pos(1), ant.digPos(1)];
+            digY = [ant.pos(2), ant.digPos(2)];
             digXY = sub2ind(world.size, digX, digY);
             world.digPheromone(digXY) = ...
                 world.digPheromone(digXY) + C.Q_d; 
@@ -46,10 +45,8 @@ function [world, ants] = AntActions(ants, world, C)
             ant.carryTime = ant.carryTime + 1;
             Q_t = max(0, C.Q_t0 - (C.F * ant.carryTime)); %I'm assuming Q_t >= 0
             
-            [trailX, trailY] = AntBodyArea(ant); %Trail only at center of mass or entire body?
-            trailXY = sub2ind(world.size, trailX, trailY);
-            world.trailPheromone(trailXY) = ...
-                world.trailPheromone(trailXY) + Q_t; 
+            world.trailPheromone(ant.pos(1), ant.pos(2)) = ...
+                world.trailPheromone(ant.pos(1), ant.pos(2)) + Q_t; 
             
             [willDrop, dropPos] = DecideDrop(ant, world, C);
             if willDrop
