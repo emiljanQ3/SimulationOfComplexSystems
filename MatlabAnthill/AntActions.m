@@ -64,7 +64,8 @@ function [world, ants] = AntActions(ants, world, C)
         world.antSpace(oldBodyXYs) = ...
             world.antSpace(oldBodyXYs) - 1;
         
-        [movePos, newDir] = DecideMove(ant, world, C);
+        usePheromones = ~ant.hasPellet;
+        [movePos, newDir] = DecideMove(ant, world, C, usePheromones);
         
         %Check for ants to close to the edge
         if movePos(1) > size(world.sand, 1)-5 ...

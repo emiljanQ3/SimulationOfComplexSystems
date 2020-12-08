@@ -1,4 +1,4 @@
-function [movePos, newDir] = DecideMove(ant, world, C)
+function [movePos, newDir] = DecideMove(ant, world, C, usePheromones)
     W = C.directionWeights;
     for relDir = 1:8
         % relDir is relative direction, absDir is absolute
@@ -6,8 +6,10 @@ function [movePos, newDir] = DecideMove(ant, world, C)
         
         [dirX,dirY] = DirectionalArea(absDir);
         index = sub2ind(world.size, dirX+ant.pos(1), dirY+ant.pos(2));
-        Q = mean(world.trailPheromone(index));
-        W(relDir) = W(relDir) + Q;
+        if usePheromones
+            Q = mean(world.trailPheromone(index));
+            W(relDir) = W(relDir) + Q;
+        end
         
         testAnt.direction = absDir;
         testAnt.pos = ant.pos + C.directions{absDir};
