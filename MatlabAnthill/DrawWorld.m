@@ -11,7 +11,7 @@ function DrawWorld(world, showPheromones)
     
 
     f = figure(3);
-    %set(f,'WindowState','fullscreen');
+    set(f,'Position',[100,100,700,700]);
     
     hold off
     rgb = zeros([world.size, 3]);
@@ -24,7 +24,7 @@ function DrawWorld(world, showPheromones)
         rgb(:,:,j) = C;
     end
 
-    imshow(rgb)
+    imshow(rgb,'InitialMagnification','fit')
     
     if ~showPheromones
         return
