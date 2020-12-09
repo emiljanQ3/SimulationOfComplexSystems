@@ -1,4 +1,6 @@
 function VisualizeSandPelletsOverTime(snapshots)
+    snapshots = snapshots(~cellfun('isempty',snapshots));
+
     sand = zeros(1, length(snapshots));
     pelletsTot = sand;
     pelletsInside = sand;
