@@ -21,8 +21,19 @@ function VisualizeSandPelletsOverTime(snapshots)
     hold on
     plot(x, y2)
     plot(x, y3)
-
+    
     legend('Sand', 'Sand + pellets under disc', ...
         'Sand + all pellets', 'Location', 'southwest')
+    
+    excavatedSand = pelletsTot - pelletsInside;
+    deltaSand = excavatedSand(2:end) - excavatedSand(1:end-1);
+    
+    figure(5)
+    plot(x, excavatedSand);
+    
+    figure(6)
+    plot(1:length(deltaSand), deltaSand)
+
+    
 end
 
