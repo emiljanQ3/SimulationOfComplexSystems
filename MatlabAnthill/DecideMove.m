@@ -15,7 +15,7 @@ function [movePos, newDir] = DecideMove(ant, world, C, usePheromones)
         testAnt.pos = ant.pos + C.directions{absDir};
         [bodyX, bodyY] = AntBodyArea(testAnt);
         
-        if IsBlocked(bodyX,bodyY,world)
+        if IsBlocked(bodyX,bodyY,world, C)
            W(relDir) = 0; 
         end
     end

@@ -1,8 +1,14 @@
+%Rule params
+C.antDepth = 2; %
+C.freeMoveOutsideDisk = true; %
+C.willPickUpOutsideDisk = false; 
+C.walkOverPellets = false; %
+
 %Constants
 worldSize = [150, 150];
-diskR = 70;                         % cells
-numAnts = 30;                       % leggy bois
-simTime = 60*60*24;                 % s
+diskR = 67;                         % cells
+numAnts = 10;                       % leggy bois <3
+simTime = 60*60*30;                 % s
 snapshotTime = 5*60;                % s
 
 C.dt = 1;                           % s
@@ -32,6 +38,7 @@ numTimeSteps = ceil(simTime / C.dt);
 
 snapshots = cell(1, ceil(numTimeSteps/(snapshotTime/C.dt)));
 
+tic
 %Simulation
 for i = 1:numTimeSteps  
     %DrawWorld(world, 0);
@@ -46,7 +53,8 @@ end
 %% Visualize
 VisualizeSandPelletsOverTime(snapshots)
 
+%%
 for i = 1:length(snapshots)
     world = snapshots{i};
-    DrawWorld(world, 0);
+    DrawWorld(world, 1);
 end
