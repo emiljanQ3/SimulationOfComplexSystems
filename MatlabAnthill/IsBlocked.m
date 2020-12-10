@@ -15,4 +15,12 @@ function isBlocked = IsBlocked(bodyX,bodyY,world,C)
     end
     
     isBlocked = false;
+    
+    % coltons edit
+    %     if any(world.sand(bodyX,bodyY),'all') ...
+%             || any(world.pellets(bodyX,bodyY),'all')...
+%             || any(world.antSpace(bodyX,bodyY),'all')
+%         isBlocked = true;
+%         return
+%     end
 end
