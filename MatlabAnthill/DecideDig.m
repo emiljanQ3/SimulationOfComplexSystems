@@ -12,7 +12,7 @@ function [willDig, digPos] = DecideDig(ant, world, C)
          willDig = rand < C.f_sa;
          willDig = willDig || rand < C.f_pa(Q);
      else
-         willDig = rand < C.f_sa;
+         willDig = rand < C.f_sh;
          willDig = willDig || rand < C.f_pa(Q);
      end
      
