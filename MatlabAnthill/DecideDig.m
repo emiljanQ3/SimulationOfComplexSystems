@@ -13,7 +13,7 @@ function [willDig, digPos] = DecideDig(ant, world, C)
          willDig = willDig || rand < C.f_pa(Q);
      else
          willDig = rand < C.f_sh;
-         willDig = willDig || rand < C.f_pa(Q);
+         willDig = willDig || rand < C.f_ph(Q);
      end
      
      %TODO how to decide dig position? Will do random block based on
