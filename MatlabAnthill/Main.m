@@ -1,8 +1,8 @@
-clear all
+clear all;
 %Rule params
 C.antDepth = 2; %
 C.freeMoveOutsideDisk = false; %
-C.willPickUpOutsideDisk = true; 
+C.willPickUpOutsideDisk = true;
 C.walkOverPellets = true; %
 
 %Constants
@@ -12,6 +12,10 @@ numAnts = 50;                       % leggy bois <3
 simTime = 60*60*27;                 % s
 snapshotTime = 5*60;                % s
 
+C.worldSize = worldSize;
+C.diskR = diskR;
+C.numAnts = numAnts;
+C.simTime = simTime;
 C.dt = 1;                           % s
 C.T_d = 42.04 / C.dt;                    
 C.P_d = 0.188 * C.dt;                    
@@ -39,19 +43,26 @@ numTimeSteps = ceil(simTime / C.dt);
 
 snapshots = cell(1, numTimeSteps / ceil(snapshotTime/C.dt));
 
-tic
+antPositions = zeros(numAnts,2, numTimeSteps);
+
+%%
 %Simulation
+
 k = 1;
-for i = 1:numTimeSteps  
-    [world, ants] = AntActions(ants, world, C);
+for i = 1:numTimeSteps
+    [world, ants, antPositions(:,:,i)] = AntActions(ants, world, C);
     world = PheromoneDecay(world, C);
     world = PheromoneDiffuse(world, C);
-    
+
     PrintProgress(i, numTimeSteps);
     if mod(i,numTimeSteps/ceil(snapshotTime/C.dt)) == 0
-        snapshots{k} = {world.antSpace, world.sand;
+        snapshots{k} = {world.antSpace, world.sand};
         k = k + 1;
     end
 %     snapshots = SaveSnapshots(snapshots, i, numTimeSteps, world);
 end
-save 625x625disk125dt1FTT200ants.mat snapshots
+datenow = datestr(now);
+datenow(datenow==':')='.';
+save(string("AntPos_" + datenow + ".mat"), "antPositions",'-v7.3', '-mat')
+save(string("SnapShots_" + datenow +".mat"), "snapshots",'-v7.3','-mat')
+save(string("C_" + datenow +".mat"), "C",'-v7.3','-mat')
