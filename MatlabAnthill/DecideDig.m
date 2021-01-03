@@ -19,25 +19,27 @@ function [willDig, digPos] = DecideDig(ant, world, C)
      %TODO how to decide dig position? Will do random block based on
      %movement matrix
      
-    W = C.directionWeights;
-    random = rand * sum(W);
-    weightSum = 0;
-
-    for relDir = 1:8
-        weightSum = weightSum + W(relDir);
-        if random < weightSum
-            absDir = relDir - 1 + ant.direction;
-            if absDir > 8
-                movePos = ant.pos + C.directions{absDir - 8};
-            else
-                movePos = ant.pos + C.directions{absDir};
-            end
-            break
-        end
-    end
+%     W = C.directionWeights;
+%     W(1) = W(1) * 10000;
+%     random = rand * sum(W);
+%     weightSum = 0;
+    absDir = ant.direction;
+    movPos = ant.pos + C.directions{absDir};
+%     for relDir = 1:8
+%         weightSum = weightSum + W(relDir);
+%         if random < weightSum
+%             absDir = relDir - 1 + ant.direction;
+%             if absDir > 8
+%                 movePos = ant.pos + C.directions{absDir - 8};
+%             else
+%                 movePos = ant.pos + C.directions{absDir};
+%             end
+%             break
+%         end
+%     end
     
     dummyAnt.direction = absDir;
-    dummyAnt.pos = movePos;
+    dummyAnt.pos = movPos;
     
     [digAreaX, digAreaY] = AntBodyArea(dummyAnt);
     
