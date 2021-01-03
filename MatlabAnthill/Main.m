@@ -1,14 +1,15 @@
+clear all
 %Rule params
 C.antDepth = 2; %
-C.freeMoveOutsideDisk = true; %
-C.willPickUpOutsideDisk = false; 
-C.walkOverPellets = false; %
+C.freeMoveOutsideDisk = false; %
+C.willPickUpOutsideDisk = true; 
+C.walkOverPellets = true; %
 
 %Constants
-worldSize = [150, 150];
-diskR = 67;                         % cells
-numAnts = 10;                       % leggy bois <3
-simTime = 60*60*30;                 % s
+worldSize = [625, 625];
+diskR = 125;                         % cells
+numAnts = 50;                       % leggy bois <3
+simTime = 60*60*27;                 % s
 snapshotTime = 5*60;                % s
 
 C.dt = 1;                           % s
@@ -36,25 +37,21 @@ world = CreateWorld(worldSize, diskR);
 [world, ants] = CreateAnts(numAnts, world);
 numTimeSteps = ceil(simTime / C.dt); 
 
-snapshots = cell(1, ceil(numTimeSteps/(snapshotTime/C.dt)));
+snapshots = cell(1, numTimeSteps / ceil(snapshotTime/C.dt));
 
 tic
 %Simulation
+k = 1;
 for i = 1:numTimeSteps  
-    %DrawWorld(world, 0);
     [world, ants] = AntActions(ants, world, C);
     world = PheromoneDecay(world, C);
     world = PheromoneDiffuse(world, C);
     
     PrintProgress(i, numTimeSteps);
-    snapshots = SaveSnapshots(snapshots, i, numTimeSteps, world);
+    if mod(i,numTimeSteps/ceil(snapshotTime/C.dt)) == 0
+        snapshots{k} = {world.antSpace, world.sand;
+        k = k + 1;
+    end
+%     snapshots = SaveSnapshots(snapshots, i, numTimeSteps, world);
 end
-
-%% Visualize
-VisualizeSandPelletsOverTime(snapshots)
-
-%%
-for i = 1:length(snapshots)
-    world = snapshots{i};
-    DrawWorld(world, 1);
-end
+save 625x625disk125dt1FTT200ants.mat snapshots
