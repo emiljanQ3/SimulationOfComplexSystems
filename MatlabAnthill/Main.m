@@ -16,6 +16,7 @@ C.worldSize = worldSize;
 C.diskR = diskR;
 C.numAnts = numAnts;
 C.simTime = simTime;
+C.snapshotTime = snapshotTime;
 C.dt = 1;                           % s
 C.T_d = 42.04 / C.dt;                    
 C.P_d = 0.188 * C.dt;                    
